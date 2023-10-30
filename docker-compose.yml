@@ -1,0 +1,17 @@
+services:
+  proxy:
+    image: nginx:latest
+    container_name: proxy
+    restart: always
+    ports:
+      - 8545:80
+    links:
+      - ctf
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  ctf:
+    build: .
+    container_name: ctf
+    restart: always
+    command:
+      - --host=0.0.0.0
